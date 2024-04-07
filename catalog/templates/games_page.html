@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+</head>
+<body>
+    <h1>Games</h1>
+    <ul>
+        {% for game in games %}
+        <li><a href="{% url 'game_details_page' game.id %}">{{ game.date }} - {{ game.home_team }} vs {{ game.away_team }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

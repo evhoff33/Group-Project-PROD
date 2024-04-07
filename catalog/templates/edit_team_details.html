@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Team Details</title>
+</head>
+<body>
+    <h1>Edit Team Details</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Save Changes</button>
+    </form>
+    <a href="{% url 'team_details' team.id %}">Back to Team Details</a>
+    <!-- Add a link to navigate back to the team details page -->
+</body>
+</html>

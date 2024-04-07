@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divisions</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .division {
+            flex-basis: 45%;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .division h2 {
+            margin-top: 0;
+        }
+        .division ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .division ul li {
+            margin-bottom: 5px;
+        }
+        .back-to-home {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Divisions</h1>
+    <div class="container">
+        {% for division in divisions %}
+        <div class="division">
+            <h2>{{ division.name }}</h2>
+            <ul>
+                {% for team in division.team_set.all %}
+                <li><a href="{% url 'team_details' team.id %}">{{ team.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="back-to-home" href="{% url 'landing_page' %}">Back to Home</a> <!-- Positioned at bottom left -->
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Details</title>
+</head>
+<body>
+    <h1>Team Details</h1>
+    <h2>{{ team.name }}</h2>
+    <p>Description: {{ team.description }}</p>
+    {% if team.image %}
+    <img src="{{ team.image.url }}" alt="{{ team.name }}">
+    {% else %}
+    <p>No image available</p>
+    {% endif %}
+
+    <!-- Display active players -->
+    <h2>Active Players</h2>
+    <ul>
+        {% for player in team.players.all %}
+        <li><a href="{% url 'player_details' player.id %}">{{ player.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'teams_page' %}">Back to Teams</a>
+    <!-- Add a link to navigate back to the teams page -->
+</body>
+</html>
