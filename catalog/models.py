@@ -72,9 +72,6 @@ class PlayerStat(models.Model):
 
     # Add more fields as needed
 
-    def __str__(self):
-        return f"{self.player} - {self.game}"
-
 
 class TeamStat(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='teamstats')
