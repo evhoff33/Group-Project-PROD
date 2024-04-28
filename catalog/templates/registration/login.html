@@ -1,9 +1,21 @@
 <!-- login.html -->
-
+{% extends "base.html" %}
 {% block content %}
 
+<style>
+  td{
+    color: black;
+  }
+  p{
+    color: black;
+  }
+
+
+</style>
+
+
   {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    <p class = "login_error">Your username and password didn't match. Please try again.</p>
   {% endif %}
 
   {% if next %}
@@ -15,7 +27,8 @@
     {% endif %}
   {% endif %}
 
-  <form method="post" action="{% url 'login' %}">
+  <form method="post" action="{% url 'login' %}" class = "form-group">
+
     {% csrf_token %}
     <table>
       <tr>
@@ -27,8 +40,15 @@
         <td>{{ form.password }}</td>
       </tr>
     </table>
-    <input type="submit" value="login">
+    <input type="submit" value="Login">
     <input type="hidden" name="next" value="{{ next }}">
+
+    <p><strong>Don't have an account?</strong>
+          <a href="{% url 'register' %}"> Sign Up Now</a>
+    </p>
+
   </form>
+
+
 
 {% endblock %}

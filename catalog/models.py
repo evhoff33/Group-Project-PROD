@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns
 from django.contrib.auth.models import User
 
-
+# Create your models here.
 class Division(models.Model):
     name = models.CharField(max_length=100)
 
@@ -27,6 +27,8 @@ class Team(models.Model):
 class Player(models.Model):
     name = models.CharField(max_length=100)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='players')
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='player_images/', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -57,6 +59,34 @@ class Standings(models.Model):
     def __str__(self):
         return f"{self.team}: {self.wins}-{self.losses}"
 
-from django.db import models
 
-# Create your models here.
+class PlayerStat(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='playerstats')
+    points = models.FloatField()
+    rebounds = models.FloatField()
+    assists = models.FloatField()
+    steals = models.FloatField()
+    blocks = models.FloatField()
+    field_goals_percentage = models.FloatField(null=True)
+    three_points_percentage = models.FloatField(null=True)
+
+    # Add more fields as needed
+
+    def __str__(self):
+        return f"{self.player} - {self.game}"
+
+
+class TeamStat(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='teamstats')
+    points = models.FloatField()
+    rebounds = models.FloatField()
+    assists = models.FloatField()
+    steals = models.FloatField()
+    blocks = models.FloatField()
+    field_goals_percentage = models.FloatField(null=True)
+    three_points_percentage = models.FloatField(null=True)
+
+    # Add more fields as needed
+
+
+

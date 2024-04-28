@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 <html lang="en">
 
 <head>
@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Details</title>
 </head>
-<body>
+{% block content %}
+<div class="main_content">
     <h1>Game Details</h1>
     <p>Date: {{ game.date }}</p>
     <p>Home Team: {{ game.home_team }}</p>
@@ -14,5 +15,6 @@
     <p>Home Score: {{ game.home_score }}</p>
     <p>Away Score: {{ game.away_score }}</p>
     <!-- Add more details.. -->
-</body>
+</div>
+{% endblock %}
 </html>

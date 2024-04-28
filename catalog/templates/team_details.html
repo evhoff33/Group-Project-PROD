@@ -1,29 +1,54 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Details</title>
+    {% block title %}Team Profile{% endblock %}
 </head>
-<body>
-    <h1>Team Details</h1>
-    <h2>{{ team.name }}</h2>
-    <p>Description: {{ team.description }}</p>
-    {% if team.image %}
-    <img src="{{ team.image.url }}" alt="{{ team.name }}">
-    {% else %}
-    <p>No image available</p>
-    {% endif %}
+{% block content %}
+<div class="main_content">
+    <div class="team-detail-container">
+        <div class="display_teaminfo">
+            <h1>Team Profile</h1>
+            <h2><br>{{ team.name }}</h2>
+            <p>Description: {{ team.description }}<br><br><br></p>
+            {% if team.image %}
+            <img src="{{ team.image.url }}" alt="Team Image" width="50%" height="50%">
+            {% else %}
+            <p>No image available</p>
+            {% endif %}
 
-    <!-- Display active players -->
-    <h2>Active Players</h2>
-    <ul>
-        {% for player in team.players.all %}
-        <li><a href="{% url 'player_details' player.id %}">{{ player.name }}</a></li>
-        {% endfor %}
-    </ul>
+            <!-- Display active players -->
+            <h2><br><br>Active Players</h2>
+            <ul>
+                {% for player in team.players.all %}
+                <li><a href="{% url 'player_details' player.id %}">{{ player.name }}</a></li>
+                {% endfor %}
+            </ul>
 
-    <a href="{% url 'teams_page' %}">Back to Teams</a>
-    <!-- Add a link to navigate back to the teams page -->
-</body>
+            <a href="{% url 'teams_page' %}">Back to Teams</a>
+            <!-- Add a link to navigate back to the teams page -->
+         </div>
+
+       <div class="display_teamstats">
+           <h2>Team Stats (2023-2024)</h2>
+            <ul>
+                {% for stat in team.teamstats.all %}
+                    <li>Points: {{ stat.points }}</li>
+                    <li>Rebounds: {{ stat.rebounds }}</li>
+                    <li>Assists: {{ stat.assists }}</li>
+                    <li>Field Goals Percentage: {{ stat.field_goals_percentage|default_if_none:"-" }}%</li>
+                    <li>Three Points Percentage: {{ stat.three_points_percentage|default_if_none:"-" }}%</li>
+                    <li>Steals: {{ stat.steals }}</li>
+                    <li>Blocks: {{ stat.blocks }}</li>
+                {% empty %}
+                    <li>No stats available for this player.</li>
+            {% endfor %}
+            </ul>
+
+
+
+
+</div>
+{% endblock %}
 </html>

@@ -1,18 +1,44 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player Details</title>
+    {% block title %}Player Profile{% endblock %}
 </head>
-<body>
-    <h1>Player Details</h1>
-    <h2>{{ player.name }}</h2>
-    <!-- Iron out details to show -->
-    <p>Team: <a href="{% url 'team_details' player.team.id %}">{{ player.team.name }}</a></p>
-
-
-    <a href="{% url 'players_page' %}">Back to Players</a>
-    <!-- Add a link to navigate back to the players page -->
-</body>
+{% block content %}
+<div class="main_content">
+    <div class="player-detail-container">
+        <div class="display_playerinfo">
+            <h1>Player Profile</h1>
+            <h2><br>{{ player.name }}</h2>
+            <p>Description: {{ player.description }}<br><br></p>
+            {% if player.image %}
+            <img src="{{ player.image.url }}" alt="Player Image" width="60%" height="52%">
+            {% else %}
+            <p>No image available</p>
+            {% endif %}
+            <!-- Iron out details to show -->
+            <p><br><br>Team: <a href="{% url 'team_details' player.team.id %}">{{ player.team.name }}</a></p>
+            <a href="{% url 'players_page' %}">Back to Players</a>
+            <!-- Add a link to navigate back to the players page -->
+        </div>
+        <div class="display_playerstats">
+            <h2>Player Stats (2023-2024)</h2>
+            <ul>
+                {% for stat in player.playerstats.all %}
+                    <li>Points: {{ stat.points }}</li>
+                    <li>Rebounds: {{ stat.rebounds }}</li>
+                    <li>Assists: {{ stat.assists }}</li>
+                    <li>Field Goals Percentage: {{ stat.field_goals_percentage|default_if_none:"-" }}%</li>
+                    <li>Three Points Percentage: {{ stat.three_points_percentage|default_if_none:"-" }}%</li>
+                    <li>Steals: {{ stat.steals }}</li>
+                    <li>Blocks: {{ stat.blocks }}</li>
+                {% empty %}
+                    <li>No stats available for this player.</li>
+            {% endfor %}
+            </ul>
+        </div>
+   </div>
+</div>
+{% endblock %}
 </html>

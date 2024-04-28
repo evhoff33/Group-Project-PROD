@@ -1,75 +1,59 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .nav-links {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            text-align: center;
-        }
-        .nav-links li {
-            display: inline;
-            margin-right: 10px;
-        }
-        .nav-links li:last-child {
-            margin-right: 0;
-        }
-    </style>
-</head>
-<body>
-    <ul class="nav-links">
-        <li><a href="{% url 'divisions_page' %}">View Divisions</a></li>
-        <li><a href="{% url 'teams_page' %}">View Teams</a></li>
-        <li><a href="{% url 'games_page' %}">View Games</a></li>
-        <li><a href="{% url 'players_page' %}">View Players</a></li>
-        <li><a href="{% url 'standings_page' %}">View Standings</a></li>
-        <li><a href="{% url 'login' %}">Login</a></li>
-        <!-- Add more links as needed -->
-    </ul>
+    {% block title %}Home Page{% endblock %}
 
-    <h1>Recent Games</h1>
+
+</head>
+{% block content %}
+<div class="main_content">
+
+    <h1>Recent Games<br><br></h1>
     <table>
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Home Team</th>
                 <th>Away Team</th>
-                <th>Home Score</th>
+                <th>Home Score&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th>Away Score</th>
             </tr>
         </thead>
         <tbody>
             {% for game in recent_games %}
             <tr>
-                <td>{{ game.date }}</td>
-                <td>{{ game.home_team }}</td>
-                <td>{{ game.away_team }}</td>
-                <td>{{ game.home_score }}</td>
-                <td>{{ game.away_score }}</td>
+                <td>{{ game.date }}&nbsp;&nbsp;&nbsp;</td>
+                <td>{{ game.home_team }}&nbsp;&nbsp;&nbsp;</td>
+                <td>{{ game.away_team }}&nbsp;&nbsp;&nbsp;</td>
+                <td>{{ game.home_score }}&nbsp;&nbsp;&nbsp;</td>
+                <td>{{ game.away_score }}&nbsp;&nbsp;&nbsp;</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
+
+
+    <div class="welcome_message">
+    {% if user.is_authenticated %}
+        <br><br>Welcome, {{ user.first_name }} {{ user.last_name }}
+    {% endif %}
+</div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-6">
+                <h2 class = "homepage_videocaption"> Featured Video:<br><br> </h2>
                 <!-- Embed YouTube video -->
-                <video controls width="100%" height="315">
-                    <source src="https://www.youtube.com/embed/cuLprHh_BRg?si=-sGIb8MwVS635eRP" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/s_q3CcJQMa8?si=_2pRgqWXUBePhc5I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+</div>
+{% endblock %}
 </html>

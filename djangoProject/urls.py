@@ -19,7 +19,7 @@ from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.static import serve
-from django.urls import include
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +29,5 @@ settings.MEDIA_ROOT}), #serve media files when deployed
 settings.STATIC_ROOT}), #serve static files when deployed
     path('', include('catalog.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('register.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

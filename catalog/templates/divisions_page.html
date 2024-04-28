@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Divisions</title>
+    {% block title %}Divisions{% endblock %}
     <style>
         .container {
             display: flex;
@@ -34,7 +34,8 @@
         }
     </style>
 </head>
-<body>
+{% block content %}
+<div class="main_content">
     <h1>Divisions</h1>
     <div class="container">
         {% for division in divisions %}
@@ -49,5 +50,6 @@
         {% endfor %}
     </div>
     <a class="back-to-home" href="{% url 'landing_page' %}">Back to Home</a> <!-- Positioned at bottom left -->
-</body>
+</div>
+{% endblock %}
 </html>
