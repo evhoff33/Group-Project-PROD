@@ -11,7 +11,7 @@ from django.urls import reverse
 
 def landing_page(request):
     # Fetch the three most recent games
-    recent_games = Game.objects.order_by('-date')[:3]
+    recent_games = Game.objects.order_by('-date')[:10]
     context = {'recent_games': recent_games}
     return render(request, 'landing_page.html', context)
 
