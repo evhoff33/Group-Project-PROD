@@ -7,12 +7,42 @@
 </head>
 {% block content %}
 <div class="main_content">
-    <h1>Games</h1>
+    <h1>Past Games<br><br></h1>
     <ul>
         {% for game in games %}
         <li><a href="{% url 'game_details_page' game.id %}">{{ game.date }} - {{ game.home_team }} vs {{ game.away_team }}</a></li>
         {% endfor %}
+    <br><br>
     </ul>
+</div>
+
+
+<div class="games_page">
+    <h2 style="text-decoration: underline;"> Recent NBA Games: </h2>
+    <table class="games_page">
+  <thead>
+    <tr>
+      <th style="color:orange;">Home Team&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+      <th>Score&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+      <th style="color:lightgreen;">Away Team&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+      <th>Score&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+      <th>Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for game in recent_games %}
+    <tr>
+      <td>{{ game.home_team }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>{{ game.home_score }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>{{ game.away_team }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>{{ game.away_score }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>{{ game.game_status }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br><br><br>
+<a class="back-to-home" href="{% url 'landing_page' %}">Back to Home</a> <!-- Positioned at bottom left -->
 </div>
 {% endblock %}
 </html>

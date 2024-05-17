@@ -3,12 +3,15 @@
 {% block content %}
 <div class="main_content">
     <title>Players</title>
-    <h1>Players</h1>
+    <h1>Players<br><br> </h1>
     <ul>
         {% for player in players %}
         <li><a href="{% url 'player_details' player.id %}">{{ player.name }}</a></li>
         {% endfor %}
     </ul>
+<br><br>
+<a class="back-to-home" href="{% url 'landing_page' %}">Back to Home</a> <!-- Positioned at bottom left -->
 </div>
+<br>
 {% endblock %}
 </html>

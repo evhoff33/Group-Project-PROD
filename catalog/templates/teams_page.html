@@ -7,12 +7,15 @@
 </head>
 {% block content %}
 <div class="main_content">
-    <h1>Teams</h1>
+    <h1>Teams<br><br></h1>
     <ul>
         {% for team in teams %}
         <li><a href="{% url 'team_details' team.id %}">{{ team.name }}</a></li>
         {% endfor %}
     </ul>
+<br><br>
+<a class="back-to-home" href="{% url 'landing_page' %}">Back to Home</a> <!-- Positioned at bottom left -->
 </div>
 {% endblock %}
+<br><br><br>
 </html>

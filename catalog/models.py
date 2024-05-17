@@ -25,6 +25,7 @@ class Team(models.Model):
         return reverse('team_details', args=[str(self.id)])
 
 class Player(models.Model):
+    player_id = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=100)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='players')
     description = models.TextField(blank=True)

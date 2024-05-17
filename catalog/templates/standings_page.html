@@ -6,26 +6,35 @@
     <title>Standings<br></title>
 </head>
 {% block content %}
-<div class="main_content">
-    <h1>Standings</h1>
+<div class="standings">
+    <h1>Standings<br><br></h1>
     <table>
         <thead>
-            <tr>
-                <th>Team&nbsp;&nbsp;&nbsp;</th>
-                <th>Wins&nbsp;&nbsp;&nbsp;</th>
-                <th>Losses&nbsp;&nbsp;&nbsp;</th>
-            </tr>
+        <tr>
+        <th>Team&nbsp;&nbsp;&nbsp;</th>
+        <th>Wins&nbsp;&nbsp;&nbsp;</th>
+        <th>Losses&nbsp;&nbsp;&nbsp;</th>
+        <th>Win %&nbsp;&nbsp;&nbsp;</th>
+        <th>Conference&nbsp;&nbsp;&nbsp;</th>
+        <th>Division&nbsp;&nbsp;&nbsp;</th>
+        </tr>
         </thead>
         <tbody>
-            {% for standing in standings %}
-            <tr>
-                <td>{{ standing.team }}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td>{{ standing.wins }}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td>{{ standing.losses }}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            </tr>
+            {% for team in standings %}
+                <tr class = "standings">
+                    <td>{{ team.team_number }}.&nbsp;&nbsp;{{ team.team_city }} {{ team.team_name }}&nbsp;&nbsp;&nbsp;</td>
+                    <td>{{ team.wins }}</td>
+                    <td>{{ team.losses }}</td>
+                    <td>{{ team.win_pct }}</td>
+                    <td>{{ team.conference }}</td>
+                <td>{{ team.division }}</td>
+                </tr>
             {% endfor %}
         </tbody>
     </table>
+<br><br><br>
+<a class="back-to-home" href="{% url 'landing_page' %}">Back to Home</a> <!-- Positioned at bottom left -->
 </div>
+<br>
 {% endblock %}
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block title %}Divisions{% endblock %}
+    {% block title %}Conferences{% endblock %}
     <style>
         .container {
             display: flex;
@@ -36,7 +36,7 @@
 </head>
 {% block content %}
 <div class="main_content">
-    <h1>Divisions</h1>
+    <h1>Conferences<br><br></h1>
     <div class="container">
         {% for division in divisions %}
         <div class="division">
@@ -51,5 +51,6 @@
     </div>
     <a class="back-to-home" href="{% url 'landing_page' %}">Back to Home</a> <!-- Positioned at bottom left -->
 </div>
+<br><br>
 {% endblock %}
 </html>
