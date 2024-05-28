@@ -1,3 +1,5 @@
-Deployed Django website: 
+Deployed Django Website: 
 
-https://evhoff0.pythonanywhere.com/
+https://nba-stats-evhoff0.pythonanywhere.com/
+
+
