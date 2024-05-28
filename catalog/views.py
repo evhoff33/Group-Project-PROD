@@ -12,14 +12,28 @@ from nba_api.live.nba.endpoints import scoreboard
 
 
 def landing_page(request):
-    # Fetch the ten most recent games
-    recent_games = Game.objects.order_by('-date')[:10]
+    # new development for home page
+    game_data = scoreboard.ScoreBoard().get_dict()['scoreboard']['games']
 
+    recent_games = []
+
+    for game in game_data:
+        game_info = {
+            'home_team': game['homeTeam']['teamName'],
+            'home_score': game['homeTeam']['score'],
+            'away_team': game['awayTeam']['teamName'],
+            'away_score': game['awayTeam']['score'],
+            'game_status': game['gameStatusText']
+        }
+        recent_games.append(game_info)
     # Fetch all players
     players = Player.objects.all()
 
     # Fetch all teams
     teams = Team.objects.all()
+    for team in teams:
+        just_team_name = team.name.split()
+        team.name = just_team_name[-1]
 
     selected_player = None
     selected_team = None
@@ -43,12 +57,7 @@ def landing_page(request):
 
     return render(request, 'landing_page.html', context)
 
-#def divisions_page(request):
-    # Fetch all divisions and teams
-#    divisions = Division.objects.all()
-#    context = {'divisions': divisions}
-#    return render(request, 'divisions_page.html', context)
-#testing some changes 4/5/24
+
 def divisions_page(request):
     divisions = Division.objects.prefetch_related('team_set').all()  # Query divisions with teams
     return render(request, 'divisions_page.html', {'divisions': divisions})

@@ -56,6 +56,20 @@ body {
 
 }
 
+.left-home-page{
+    display: grid;
+    padding: 0;
+    grid-template-columns: 50% 50%; /* Adjust the column widths as needed */
+    gap: 1%; /* Adjust the gap between columns if needed */
+}
+
+.right-home-page{
+    display: grid;
+    padding: 0;
+    grid-template-columns: 50% 50%; /* Adjust the column widths as needed */
+    gap: 1%; /* Adjust the gap between columns if needed */
+}
+
 .display_teaminfo {
     color: white;
     margin: 0;
@@ -129,4 +143,18 @@ p{
 .forgot_pass_button{
     color: darkslategrey;
 }
+
+.reset_form{
+    color: white;
+}
+
+h3{
+    color: white;
+
+}
+
+.home_page_image {
+    margin-right: 4.8em;
+}
+
 

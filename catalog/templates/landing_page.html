@@ -9,101 +9,123 @@
 
 </head>
 {% block content %}
-<div class="main_content">
+<div class="left-home-page">
+    <div class="main_content">
 
-    <h1>Recent Games<br><br></h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Home Team</th>
-                <th>Away Team</th>
-                <th>Home Score&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <th>Away Score</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for game in recent_games %}
-            <tr>
-                <td>{{ game.date }}&nbsp;&nbsp;&nbsp;</td>
-                <td>{{ game.home_team }}&nbsp;&nbsp;&nbsp;</td>
-                <td>{{ game.away_team }}&nbsp;&nbsp;&nbsp;</td>
-                <td>{{ game.home_score }}&nbsp;&nbsp;&nbsp;</td>
-                <td>{{ game.away_score }}&nbsp;&nbsp;&nbsp;</td>
-            </tr>
+        <h1 style= "text-decoration: underline">Today's Games<br><br><br></h1>
+        <table class="games_page">
+      <thead>
+        <tr>
+          <th style="color:orange;">Home Team&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th>Score&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th style="color:lightgreen;">Away Team&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th>Score&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th>Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for game in recent_games %}
+        <tr>
+          <td style= "font-weight: bold">{{ game.home_team }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            {% for team in teams %}
+                {% if team.name == game.home_team %}
+                    <img class="home_page_image" src="{{ team.image.url }}" alt="Team Image" width="16%" height="16%">
+                {% endif %}
             {% endfor %}
-        </tbody>
+          <td>{{ game.home_score }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td style= "font-weight: bold">{{ game.away_team }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            {% for team in teams  %}
+               {% if team.name == game.away_team %}
+                   <img class="home_page_image" src="{{ team.image.url }}" alt="Team Image" width="16%" height="16%"><br><br>
+               {% endif %}
+            {% endfor %}
+          <td>{{ game.away_score }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td>{{ game.game_status }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
 
+    <div class="main_content">
+        {% if not user.is_authenticated %}
+            <p> <br><br><br>Please Sign-In or Create An Account to access more <strong>free</strong> features! </p>
+        {% endif %}
+    </div>
 
 
-<div class="welcome_message">
-    {% if user.is_authenticated %}
-        {% if user.is_staff %}
-            <br><br>Welcome, Admin: {{ user.first_name }} {{ user.last_name }}
-        {% else %}
-            <br><br>Welcome, Regular User: {{ user.first_name }} {{ user.last_name }}
-            
-<h1><br>Favorite Players and Teams<br><br></h1>
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label for="favorite_player">Select a Player:</label>
-        <select name="favorite_player" id="favorite_player">
-            <option value="">-- Select Player --</option>
-            {% for player in players %}
-                <option value="{{ player.id }}">{{ player.name }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Submit Player">
-    </div>
-    <br>
-    <div>
-        <label for="favorite_team">Select a Team:</label>
-        <select name="favorite_team" id="favorite_team">
-            <option value="">-- Select Team --</option>
-            {% for team in teams %}
-                <option value="{{ team.id }}">{{ team.name }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Submit Team">
-    </div>
-</form>
-{% if selected_player %}
-    <div>
-        <h2>Selected Player:</h2>
-        <h3><a href="{% url 'player_details' selected_player.id %}">{{ selected_player.name }}</a></h3>
-        {% if selected_player.image %}
-            <img src="{{ selected_player.image.url }}" alt="{{ selected_player.name }}" style="width: 100px; height: 100px; border-radius: 50%;">
-        {% else %}
-            <p>No image available</p>
-        {% endif %}
-    </div>
-{% endif %}
-{% if selected_team %}
-    <div>
-        <h2>Selected Team:</h2>
-        <h3><a href="{% url 'team_details' selected_team.id %}">{{ selected_team.name }}</a></h3>
-        {% if selected_team.image %}
-            <img src="{{ selected_team.image.url }}" alt="{{ selected_team.name }}" style="width: 100px; height: 100px; border-radius: 50%;">
-        {% else %}
-            <p>No image available</p>
-        {% endif %}
-    </div>
-{% endif %}
-        {% endif %}
+
+    <div class="welcome_message">
+        {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                <br><br>Welcome, Admin: {{ user.first_name }} {{ user.last_name }}
+            {% else %}
+                <br><br>Welcome, {{ user.first_name }} {{ user.last_name }}!<br><br>
+
+
+    <h1><br>Favorite Players and Teams<br><br></h1>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="favorite_player">Select a Player:</label>
+            <select name="favorite_player" id="favorite_player">
+                <option value="">-- Select Player --</option>
+                {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Submit Player">
+        </div>
+        <br>
+        <div>
+            <label for="favorite_team">Select a Team:</label>
+            <select name="favorite_team" id="favorite_team">
+                <option value="">-- Select Team --</option>
+                {% for team in teams %}
+                    <option value="{{ team.id }}">{{ team.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Submit Team">
+        </div>
+    </form>
+    {% if selected_player %}
+        <div>
+            <h2>Selected Player:</h2>
+            <h3><a href="{% url 'player_details' selected_player.id %}">{{ selected_player.name }}</a></h3>
+            {% if selected_player.image %}
+                <img src="{{ selected_player.image.url }}" alt="{{ selected_player.name }}" style="width: 100px; height: 100px; border-radius: 50%;">
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+        </div>
     {% endif %}
+    {% if selected_team %}
+        <div>
+            <h2>Selected Team:</h2>
+            <h3><a href="{% url 'team_details' selected_team.id %}">{{ selected_team.name }}</a></h3>
+            {% if selected_team.image %}
+                <img src="{{ selected_team.image.url }}" alt="{{ selected_team.name }}" style="width: 100px; height: 100px; border-radius: 50%;">
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+        </div>
+    {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
 </div>
 
+
+<div class="right-home-page">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-6">
+            <div >
                 <h2 class = "homepage_videocaption"> Featured Video:<br><br> </h2>
-
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/kZ77nnSIwnk?si=d2UjagEjOfodq_hA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="220%" height="330" src="https://www.youtube.com/embed/Y5iyoBcbRHw?si=X0vKbzFw6Y3Bp-yo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
+
+</div>
 
  
 
